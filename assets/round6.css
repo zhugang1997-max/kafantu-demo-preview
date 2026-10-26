@@ -1,0 +1,258 @@
+/* ==========================================================================
+   kafantu — round 6 corrections
+   Layered after round5.css. Only the items below are overridden.
+
+   1. Reference-style 32px rhythm between home sections
+   2. Three-up, horizontally scrollable home product rail
+   3. Values / community / product surfaces matched to the reference
+   4. Full-width footer wordmark + rule above Country/region
+   5. Accessible hover label for the accessibility launcher
+   6. Larger editorial and PDP reading sizes; COMPLETE YOUR ROUTINE block
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Section rhythm — reference uses ~32px gutters at 1440
+   -------------------------------------------------------------------------- */
+
+.announcement { border-radius: var(--radius); }
+
+.home .home-edit--showcase { padding-top: clamp(16px, 2.22vw, 32px); }
+.home .statement,
+.home .editorial,
+.home .social,
+.home .values { margin-top: clamp(16px, 2.22vw, 32px); }
+
+/* --------------------------------------------------------------------------
+   2. Home product rail — three products visible, scroll for the rest
+   -------------------------------------------------------------------------- */
+
+.showcase-card {
+  flex: 0 0 calc((100% - 24px) / 3);
+  height: clamp(540px, 43vw, 640px);
+  background:
+    radial-gradient(58% 72% at 50% 44%, rgba(255,255,255,.9) 0%, rgba(255,255,255,.22) 62%, rgba(255,255,255,0) 100%),
+    #f5f5f5;
+}
+
+.showcase-card__top {
+  top: clamp(18px, 1.8vw, 26px);
+  left: clamp(18px, 1.8vw, 26px);
+  right: clamp(18px, 1.8vw, 26px);
+  gap: 14px;
+}
+
+.showcase-card__title { font-size: clamp(1.9rem, 2.75vw, 2.7rem); }
+
+.showcase-card__bottom {
+  left: clamp(18px, 1.8vw, 26px);
+  right: clamp(18px, 1.8vw, 26px);
+  bottom: clamp(18px, 1.6vw, 24px);
+  gap: 18px;
+}
+
+.showcase-card__copy { max-width: 330px; }
+.showcase-card__meta { margin-bottom: 7px; font-size: 11px; }
+.showcase-card__desc { max-width: 320px; font-size: 15px; line-height: 1.45; }
+.showcase-card__price { font-size: 15px; }
+.showcase-card__actions { left: 14px; right: 14px; bottom: 14px; padding: 6px; }
+.showcase-buy { min-height: 46px; font-size: 13px; }
+
+/* Two cards on tablet, one wide card on phones — same interaction model. */
+@media (max-width: 1100px) and (min-width: 701px) {
+  .showcase-card {
+    flex-basis: calc((100% - 12px) / 2);
+    height: clamp(520px, 58vw, 660px);
+  }
+  .showcase-card__title { font-size: clamp(2rem, 4vw, 2.6rem); }
+}
+
+@media (max-width: 700px) {
+  .showcase-card {
+    flex-basis: 86%;
+    height: clamp(520px, 145vw, 660px);
+  }
+  .showcase-card__title { font-size: 2.3rem; }
+  .showcase-card__meta { font-size: 11px; }
+  .showcase-card__desc { max-width: 260px; font-size: 14px; }
+  .showcase-card__price { font-size: 14px; }
+  .showcase-buy { min-height: 46px; font-size: 13px; }
+}
+
+/* --------------------------------------------------------------------------
+   3. Reference surfaces + left-top values copy
+   -------------------------------------------------------------------------- */
+
+.social { background: var(--surface-soft); }
+.values--round4 { background: var(--surface-soft); }
+
+.values--round4 .values__grid {
+  align-items: stretch;
+  min-height: clamp(620px, 52.8vw, 780px);
+}
+
+.values--round4 .values__content {
+  justify-content: flex-start;
+  padding: clamp(28px, 2.4vw, 36px) clamp(24px, 2.6vw, 40px);
+}
+
+.values__list {
+  margin-top: auto;
+  padding-top: clamp(36px, 5vw, 72px);
+}
+
+.values__list .values__tab {
+  min-height: 78px;
+  padding: 22px 0;
+  font-size: clamp(1.65rem, 2.1vw, 2rem);
+  line-height: 1.05;
+}
+
+/* The reference body copy in the split editorial blocks is larger than 16px. */
+.editorial__copy p {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   4. Footer — full-width wordmark and the rule above Country/region
+   -------------------------------------------------------------------------- */
+
+.footer-brand {
+  padding-top: clamp(32px, 3.4vw, 48px);
+  padding-inline: 4px;
+  padding-bottom: clamp(22px, 2.4vw, 34px);
+}
+
+.footer-wordmark { line-height: .82; }
+
+.footer-modules .footer-link-col { gap: 14px; }
+
+.footer-country {
+  justify-content: center;
+  border-top: 1px solid var(--line-strong);
+  padding: 24px 24px 28px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Accessibility launcher — visible hover / focus label
+   -------------------------------------------------------------------------- */
+
+.accessibility-panel__head h2 {
+  font-size: 30px;
+  letter-spacing: -.03em;
+  line-height: 1.04;
+  text-transform: none;
+}
+
+.accessibility-toggle { overflow: visible; }
+
+.accessibility-toggle::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  z-index: 2;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 6px 20px rgba(26, 23, 20, .12);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(4px);
+  transition: opacity .18s var(--ease), transform .18s var(--ease), visibility .18s var(--ease);
+}
+
+.accessibility-toggle:hover::after,
+.accessibility-toggle:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 640px) {
+  .accessibility-toggle::after { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   6. PDP — larger reading sizes and the COMPLETE YOUR ROUTINE block
+   -------------------------------------------------------------------------- */
+
+.pdp--round5 .pdp-sub { font-size: 18px; line-height: 1.5; }
+.pdp--round5 .pdp-description { font-size: 18px; line-height: 1.62; }
+.pdp--round5 .pdp-option__title { font-size: 14px; }
+.pdp--round5 .size-button { min-height: 44px; font-size: 16px; }
+.pdp--round5 .pdp-cta { font-size: 18px; }
+.pdp--round5 .pdp-tab { font-size: 18px; }
+.pdp--round5 .pdp-panel { font-size: 18px; line-height: 1.6; }
+.pdp--round5 .pdp-panel p,
+.pdp--round5 .pdp-panel li { font-size: 18px; line-height: 1.6; }
+
+.pdp-story__copy > p,
+.pdp-results__copy > p,
+.pdp-application__copy > p,
+.pdp-inside__copy > p { font-size: 18px; line-height: 1.6; }
+
+.pdp-story__facts span { font-size: 13px; }
+.pdp-story__facts strong { font-size: 17px; }
+.pdp-results__placeholder span { font-size: 15px; }
+.pdp-results__placeholder small { font-size: 12px; }
+.pdp-application__steps span { font-size: 12px; }
+.pdp-application__steps p { font-size: 17px; }
+.pdp-inside__copy .fineprint { font-size: 12px; }
+
+.pdp-routine { background: var(--surface-soft); }
+.pdp-routine__heading .eyebrow { margin-bottom: 12px; font-size: 12px; }
+.pdp-routine__head h2 {
+  font-size: clamp(2.3rem, 3.2vw, 3.1rem);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.pdp-routine__head { align-items: flex-end; }
+.mini-card {
+  grid-template-columns: 136px minmax(0, 1fr);
+  gap: 18px;
+  padding: 14px;
+}
+.mini-card__name { font-size: 28px; }
+.mini-card__desc { font-size: 17px; line-height: 1.45; }
+.mini-card__price { font-size: 15px; }
+
+.pdp-faq { background: var(--surface-soft); }
+.pdp-faq__head p { font-size: 18px; }
+.pdp-faq .faq-item summary { font-size: 18px; }
+.faq-item__body p { font-size: 17px; line-height: 1.6; }
+
+.pdp-related .feature-card__meta { font-size: 12px; }
+.pdp-related .feature-card__title { font-size: clamp(2rem, 2.6vw, 2.6rem); }
+.pdp-related .feature-card__desc { font-size: 17px; }
+.pdp-related .feature-card__price { font-size: 18px; }
+
+@media (max-width: 900px) {
+  .pdp-routine__head { align-items: flex-start; }
+  .mini-card { grid-template-columns: 112px minmax(0, 1fr); gap: 14px; }
+  .mini-card__name { font-size: 24px; }
+}
+
+@media (max-width: 640px) {
+  .pdp-routine__head h2 { font-size: 2rem; }
+  .pdp--round5 .pdp-sub,
+  .pdp--round5 .pdp-description,
+  .pdp--round5 .pdp-tab,
+  .pdp--round5 .pdp-panel,
+  .pdp--round5 .pdp-panel p,
+  .pdp--round5 .pdp-panel li { font-size: 17px; }
+  .editorial__copy p { font-size: 17px; }
+  .values__list .values__tab { min-height: 64px; font-size: 1.5rem; }
+}

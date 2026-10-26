@@ -1,0 +1,51 @@
+/* ==========================================================================
+   kafantu — round 18 corrections
+   Customer feedback on the round 17 demo. Scope:
+
+   1. The floating purchase bar must appear as soon as the opening product
+      purchase area is out of view (not only when the reviews section is
+      reached). Visibility logic lives in app.js; this file does not change
+      the bar anatomy.
+   2. Product-image hover BUY button type:
+      - Home showcase cards: bring the 13px CTA up to the reference 16.88px
+        at 1440, using the same responsive scale as the Shop cards so long
+        product names do not wrap on narrower desktops.
+      - PDP "More from the edit" cards: raise the CTA to the page-detail
+        button size / weight (18px / 500) and remove the leftover underline
+        and 700 weight. Reference measures 16.88px / 400; the customer asked
+        for the page-detail type, so the larger 18px value is intentional.
+
+   Reference (rhodeskin.com, Chromium 2026-10-26, 1440×900):
+   - Home / product-card hover BUY: 407.7×49.3px, 16.88px, weight 400.
+   - PDP related-card hover BUY: 16.88px, 49.3px high, no underline.
+   - Floating bar appears after the opening buy CTA leaves the viewport and
+     hides before the footer wordmark.
+
+   Only product-image hover CTA typography changes. Product data, prices,
+   cart, checkout, routing and all other sections are untouched.
+   ========================================================================== */
+
+@media (hover: hover) and (min-width: 821px) {
+  /* Home showcase cards: 13px → reference 16.88px at 1440. The 1.172vw
+     slope keeps the 13px floor on narrow desktops and avoids a two-line
+     CTA inside the card. */
+  .showcase-buy {
+    font-size: clamp(13px, 1.172vw, 16.88px);
+    font-weight: 500;
+    letter-spacing: .025em;
+    line-height: 1.3;
+  }
+
+  /* PDP related cards: align with the page-detail CTA and remove the
+     inherited underline / heavy weight. Horizontal padding is reduced so
+     the longest "BUY … — FROM $…" label stays on one line at 1440 / 1366. */
+  .pdp-related .product-card__buy {
+    min-height: 49px;
+    padding: 12px 4px;
+    font-size: clamp(12.5px, 1.25vw, 18px);
+    font-weight: 500;
+    letter-spacing: .01em;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+}

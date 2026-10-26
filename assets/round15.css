@@ -1,0 +1,106 @@
+/* ==========================================================================
+   kafantu — round 15 corrections
+   Customer feedback on the round 14 demo. Presentation only:
+
+   1. Home values: reduce the section height and enlarge the copy above the
+      tabs, so mission / philanthropy / sustainability and the changing copy
+      are visible together on one desktop screen.
+   2. Shop: the hover buy CTA spans nearly the full product image, with the
+      reference type size.
+   3. Footer: move the vertical rule right by widening the newsletter column
+      to the reference proportion, and let its copy use that width.
+
+   Reference measurements (rhodeskin.com, Chromium, 2026-10-26):
+   - Values desktop type: body 36.36px / line-height 43.63px at 1440;
+     48.48px at 1920; right-hand image stays static.
+   - Footer newsletter column: 512.72px of a 1375px row at 1440 (37.3%).
+   - Shop card hover CTA: 12px inset from the image, 49.3px high, 16.88px type.
+
+   The demo's placeholder values copy is longer than the reference copy, so the
+   body size is set just below 36.36px at 1440 to keep all three states at one
+   stable height and avoid the tabs shifting when a tab is clicked.
+   Mobile values layout and the rest of the site are untouched.
+   ========================================================================== */
+
+@media (min-width: 821px) {
+
+  /* ------------------------------------------------------------------------
+     1. Values — shorter block, reference-scale copy
+     ------------------------------------------------------------------------ */
+
+  .values--round4 .values__grid {
+    min-height: clamp(660px, 48vw, 800px);
+  }
+
+  .values__list .values__tab {
+    min-height: 72px;
+    padding: 19px 0;
+  }
+
+  .values__body {
+    max-width: 100%;
+    font-size: clamp(1.7rem, 2.36vw, 2.75rem);
+    line-height: 1.2;
+  }
+
+  /* ------------------------------------------------------------------------
+     2. Shop — full-width product hover CTA
+     Inset is measured from the product image, matching the reference's 12px.
+     ------------------------------------------------------------------------ */
+
+  .product-card__actions--shop {
+    left: clamp(8px, .833vw, 12px);
+    right: clamp(8px, .833vw, 12px);
+    bottom: 12px;
+    transform: translateY(5px);
+  }
+
+  .product-card:hover .product-card__actions--shop,
+  .product-card:focus-within .product-card__actions--shop {
+    transform: translateY(0);
+  }
+
+  .product-card__quick--shop {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: clamp(13px, 1.172vw, 17px);
+    letter-spacing: .04em;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Footer — newsletter column matches the reference proportion
+   37.3% of the row; vertical rule lands at the reference x position.
+   Kept at ≥1125px: below that, widening the left column would squeeze the
+   four link columns into a tablet layout with heavy wrapping.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1125px) {
+  .footer-modules {
+    grid-template-columns: minmax(300px, 1.19fr) minmax(0, 2fr);
+  }
+
+  .footer-modules .footer-newsletter { padding: 40px; }
+
+  .footer-modules .footer-newsletter__lead,
+  .footer-modules .footer-newsletter > p:not(.eyebrow),
+  .footer-modules .footer-newsletter .fineprint {
+    max-width: 100%;
+  }
+
+  /* The narrower link grid keeps the reference 40px inset / 28px gutter and
+     16.2px type, so its four columns do not wrap more than the reference. */
+  .footer-link-grid {
+    padding: 40px;
+    gap: 28px;
+  }
+
+  .footer-kicker,
+  .footer-link-col {
+    font-size: clamp(16.2px, 1.125vw, 26px);
+  }
+}

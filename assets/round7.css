@@ -1,0 +1,23 @@
+/* ==========================================================================
+   kafantu — round 7 corrections
+   Layered after round6.css. Only wide-screen width rules are overridden.
+
+   1. Remove the 1600px content cap used on PDP / footer / header
+   2. Match the reference's fluid 2.25vw page gutter on wide screens
+   3. Align announcement, home, header and footer to the same page edge
+   ========================================================================== */
+
+/* The reference site has no max-width at desktop: at 1440 the page gutter is
+   32.4px; at 2560 it is 57.6px. Below 1441 the previous fixed 32px shell is
+   kept so existing tablet and phone layouts are untouched. */
+@media (min-width: 1441px) {
+  :root { --page-gutter: 2.25vw; }
+
+  .shell,
+  .site-header__inner {
+    width: calc(100% - (var(--page-gutter) * 2));
+  }
+
+  .home { padding-inline: var(--page-gutter); }
+  .announcement { margin-inline: var(--page-gutter); }
+}

@@ -1,0 +1,43 @@
+/* ==========================================================================
+   kafantu — round 16 corrections
+   Customer feedback on the round 15 demo. Only the PDP opening product block:
+
+   1. The opening product image / two-column block is too tall to fit one
+      desktop screen; reduce it.
+   2. The top of the product image and the top of the buy-box card must sit on
+      the same line, following the reference site.
+
+   Reference (rhodeskin.com product page, Chromium, 2026-10-26):
+   - The product media and the buy-box are the same height and share one top.
+   - Their shared height is 76vh at 1440x900 (684px), 1280x800 (608px),
+     1920x1080 (820.8px). They sit inside an 85vh area with 4.5vh above/below;
+     the demo has its own page spacing, so only the 76vh content height is
+     applied here.
+   - The buy-box is independently scrollable when its content exceeds that
+     shared height.
+
+   Scoped to the two-column PDP layout only (the layout stacks at <=900px).
+   Mobile layout, product data, purchase flow, routes and every other section
+   are untouched.
+   ========================================================================== */
+
+@media (min-width: 901px) {
+  .pdp--round5 .pdp-gallery {
+    height: 76vh;
+    min-height: 0;
+  }
+
+  .pdp--round5 .pdp-main {
+    height: 76vh;
+    min-height: 0;
+  }
+
+  /* The round-5 12px offset made the card start below the image. */
+  .pdp--round5 .pdp-buybox {
+    height: 76vh;
+    min-height: 0;
+    margin-top: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}

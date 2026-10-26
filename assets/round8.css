@@ -1,0 +1,194 @@
+/* ==========================================================================
+   kafantu — round 8 corrections
+   Layered after round7.css. Only the two requested areas are overridden.
+
+   1. Home split editorial blocks: true 50/50 tracks and reference typography
+   2. PDP: "spotted on you" community rail below the product hero
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Split editorial blocks — both panels meet on the page centre line
+   -------------------------------------------------------------------------- */
+
+/* The previous layers used 1.08fr / .92fr and mirrored the fractions on the
+   reverse block, so the seams sat at two different x positions. The reference
+   uses two equal tracks for both directions. */
+.editorial,
+.editorial--reverse {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* The reference panel is 11:12 (the pair is 11:6); this keeps the section
+   proportional at 1920 and above instead of capping it at the old 750px. */
+@media (min-width: 821px) {
+  .editorial,
+  .editorial--reverse {
+    height: auto;
+    aspect-ratio: 11 / 6;
+  }
+}
+
+/* Measured on the reference at 1440 and 1920: 2.525vw display type
+   (36.36 / 48.48px), 1.125vw body copy (16.2 / 21.6px), 40px inset.
+   Both blocks must use the same two tracks so their seam stays on centre. */
+.editorial__copy {
+  gap: 0;
+  padding: 40px;
+}
+.editorial__copy h2 {
+  margin: 0 0 24px;
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 2.525vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.editorial__copy p {
+  max-width: 28em;
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.125vw;
+  letter-spacing: .02em;
+  line-height: 1.5;
+}
+.editorial__copy .btn {
+  min-height: 0;
+  margin-top: 24px;
+  padding: 3.8px 30.4px 2.2px;
+  font-size: calc(14px + .2vw);
+  line-height: 1.5;
+}
+
+@media (max-width: 1080px) {
+  .editorial__copy h2 { font-size: clamp(2rem, 3.3vw, 2.9rem); }
+}
+
+@media (max-width: 900px) {
+  .editorial__copy h2 { font-size: clamp(2.1rem, 6vw, 2.8rem); }
+}
+
+@media (max-width: 820px) {
+  .editorial,
+  .editorial--reverse { grid-template-columns: 1fr; height: auto; }
+  .editorial__copy { gap: 12px; padding: 30px 24px 40px; }
+  .editorial__copy h2 { margin-bottom: 12px; font-size: clamp(2.1rem, 7vw, 2.6rem); }
+  .editorial__copy p { font-size: 17px; }
+  .editorial__copy .btn { margin-top: 12px; }
+}
+
+@media (max-width: 640px) {
+  .editorial__copy p { font-size: 17px; }
+  .editorial__copy h2 { font-size: 2.25rem; }
+}
+
+/* --------------------------------------------------------------------------
+   2. PDP — spotted on you
+   Reference measurements at 1440: 480px card, 40px inset, 40/48 heading,
+   320px square images, 32px between heading and media.
+   -------------------------------------------------------------------------- */
+
+.pdp-spotted {
+  margin-top: 32px;
+  padding: 40px;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+}
+
+.pdp-spotted__head {
+  margin: 0;
+}
+
+.pdp-spotted__head h2 {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  line-height: 1.2;
+}
+
+.pdp-spotted__stage {
+  position: relative;
+  margin-top: 32px;
+}
+
+.pdp-spotted__rail {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+.pdp-spotted__rail::-webkit-scrollbar { display: none; }
+.pdp-spotted__rail.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.pdp-spotted__card {
+  flex: 0 0 320px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin: 0;
+  border-radius: var(--radius-sm);
+  background: var(--surface-deep);
+  scroll-snap-align: start;
+}
+.pdp-spotted__card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+
+.pdp-spotted__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .94);
+  color: var(--ink);
+  box-shadow: 0 2px 12px rgba(29, 27, 24, .12);
+  transform: translateY(-50%);
+  transition: background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+}
+.pdp-spotted__arrow:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.pdp-spotted__arrow--prev { left: 10px; }
+.pdp-spotted__arrow--next { right: 10px; }
+.pdp-spotted__arrow svg { width: 18px; height: 18px; }
+
+.pdp-spotted + .pdp-story { margin-top: 32px; }
+
+@media (max-width: 900px) {
+  .pdp-spotted { padding: 30px 24px; }
+  .pdp-spotted__head h2 { font-size: 34px; }
+}
+
+@media (max-width: 900px) {
+  .pdp-spotted__card { flex-basis: 300px; }
+}
+
+@media (max-width: 640px) {
+  .pdp-spotted { margin-top: 12px; padding: 24px 18px; }
+  .pdp-spotted__head h2 { font-size: 28px; }
+  .pdp-spotted__stage { margin-top: 14px; }
+  .pdp-spotted__rail { gap: 10px; }
+  .pdp-spotted__card { flex-basis: 78vw; }
+  .pdp-spotted__arrow { width: 36px; height: 36px; }
+  .pdp-spotted__arrow--prev { left: 6px; }
+  .pdp-spotted__arrow--next { right: 6px; }
+  .pdp-spotted + .pdp-story { margin-top: 12px; }
+}

@@ -1,0 +1,68 @@
+/* ==========================================================================
+   kafantu — round 14 corrections
+   Customer feedback on the round 13 demo. Only three presentation details:
+
+   1. Home product rail: hover switches the product image to its detail /
+      usage image, as on the reference.
+   2. Values: mission / philanthropy / sustainability update the copy above
+      the tabs; the right-hand image stays unchanged.
+   3. PDP: announcement and navigation row form one continuous surface with
+      no page-colour gap between them.
+
+   Scope stays on the home rail, the home values section and body.is-product
+   header; purchase flow, routes and the rest of the pages are untouched.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Home product rail — hover image
+   The reference keeps the card copy in place and swaps the media behind it.
+   -------------------------------------------------------------------------- */
+
+.showcase-card__alt {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease);
+}
+
+.showcase-card__alt img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.showcase-card:hover .showcase-card__alt,
+.showcase-card:focus-within .showcase-card__alt {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   2. Values — copy above the tabs follows the active tab; image is static
+   -------------------------------------------------------------------------- */
+
+.values__body {
+  max-width: 540px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   3. PDP header — announcement and navigation share one surface
+   Reference: one beige card from the shipping note through the nav row.
+   -------------------------------------------------------------------------- */
+
+body.is-product .announcement {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+body.is-product .site-header {
+  border-radius: 0 0 var(--radius) var(--radius);
+}
